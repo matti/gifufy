@@ -2,18 +2,22 @@ execSync = require "exec-sync"
 argv = require('optimist').argv
 path = require "path"
 fs = require "fs"
+glob = require "glob"
 
 Help = require "./help"
 FFmpeg = require "./ffmpeg"
 Convert = require "./convert"
 Gifsicle = require "./gifsicle"
+
 class Gifufy
 
   @run: () ->
 
     [source, target, otherOptions...] = argv._
 
-    Help.usage()
+    unless source? and target?
+      Help.usage()
+      process.exit(1)
 
     workingDirPath = require("temp").mkdirSync()
 
@@ -34,19 +38,19 @@ class Gifufy
 
       convert.convertToGIFSync()
 
-    glob = require "glob"
 
     gifs = glob.sync("#{workingDirPath}/*.gif")
-    sortedGifs = gifs.sort (a,b)->
-      firstFilename = path.basename(a)
-      secondFilename = path.basename(b)
 
-      if parseInt(firstFilename) < parseInt(secondFilename)
-        return -1
-      else if parseInt(firstFilename) > parseInt(secondFilename)
-        return 1
+    sortedGifs = gifs.sort (a,b)->
+      aSequenceNumber = parseInt(path.basename(a))
+      bSequenceNumber = parseInt(path.basename(b))
+
+      return if aSequenceNumber < bSequenceNumber
+        -1
+      else if aSequenceNumber > bSequenceNumber
+        1
       else
-        return 0
+        0
 
 
     gifsicle = new Gifsicle
