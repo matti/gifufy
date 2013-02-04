@@ -1,4 +1,4 @@
-# gifufy - Converts movies to GIFs with ffmpeg and gifsicle
+# gifufy - Converts movies to GIFs with ffmpeg, imagemagick and gifsicle
 
 This is a wrapper for external programs to do the actual conversion.
 

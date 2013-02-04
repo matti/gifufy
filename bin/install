@@ -2,7 +2,7 @@
 
 echo "Checking dependencies for gifufy ..."
 
-REQUIRED_CMDS="ffmpeg gifsicle"
+REQUIRED_CMDS="ffmpeg gifsicle convert"
 
 for REQUIRED_CMD in $REQUIRED_CMDS
 do
