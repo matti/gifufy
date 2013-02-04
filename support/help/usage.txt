@@ -1,0 +1,1 @@
+Usage: gifufy src.mov dest.gif

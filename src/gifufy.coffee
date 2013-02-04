@@ -1,5 +1,6 @@
 execSync = require "exec-sync"
 argv = require('optimist').argv
+Help = require "./help"
 
 class Gifufy
 
@@ -7,9 +8,7 @@ class Gifufy
 
     [source, target, otherOptions...] = argv._
 
-    console.log source
-    console.log target
-
+    Help.usage()
 
 module.exports = Gifufy
 
