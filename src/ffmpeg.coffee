@@ -4,7 +4,7 @@ class FFmpeg
     throw "src not set" unless @options.src?
     throw "dst not set" unless @options.dst?
 
-  convertToPNG: () ->
+  convertToPNGSync: () ->
     execSync = require "exec-sync"
     path = require "path"
     destination = path.join @options.dst, "%d.png"

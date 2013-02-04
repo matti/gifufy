@@ -6,7 +6,7 @@ fs = require "fs"
 Help = require "./help"
 FFmpeg = require "./ffmpeg"
 Convert = require "./convert"
-
+Gifsicle = require "./gifsicle"
 class Gifufy
 
   @run: () ->
@@ -22,7 +22,7 @@ class Gifufy
       dst: workingDirPath
       debug: argv.debug
 
-    ffmpeg.convertToPNG()   # TODO: add Sync
+    ffmpeg.convertToPNGSync()
 
 
     pngs = fs.readdirSync(workingDirPath)
@@ -34,13 +34,28 @@ class Gifufy
 
       convert.convertToGIFSync()
 
+    glob = require "glob"
 
-    ###
-    convert = new Convert
-      src: workingDirPath
+    gifs = glob.sync("#{workingDirPath}/*.gif")
+    sortedGifs = gifs.sort (a,b)->
+      firstFilename = path.basename(a)
+      secondFilename = path.basename(b)
 
-    convert.convertToGIF()
-###
+      if parseInt(firstFilename) < parseInt(secondFilename)
+        return -1
+      else if parseInt(firstFilename) > parseInt(secondFilename)
+        return 1
+      else
+        return 0
+
+
+    gifsicle = new Gifsicle
+      src: sortedGifs
+      dst: target
+      debug: argv.debug
+
+    gifsicle.convertToAnimatedGifSync()
+
 
 module.exports = Gifufy
 
