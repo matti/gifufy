@@ -1,0 +1,15 @@
+#!/bin/sh
+
+echo "Checking dependencies for gifufy ..."
+
+REQUIRED_CMDS="ffmpeg gifsicle"
+
+for REQUIRED_CMD in $REQUIRED_CMDS
+do
+  command -v "$REQUIRED_CMD" > /dev/null && continue || {
+    echo "$REQUIRED_CMD not found, please install it first."
+    exit 1
+  }
+done
+
+echo "... dependencies ok, proceeding with install."
