@@ -21,7 +21,7 @@
   },
 
   "scripts": {
-    "install": "./bin/install"
+    "preinstall": "./bin/preinstall"
   },
 
   "keywords": [
