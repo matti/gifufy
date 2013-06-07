@@ -11,5 +11,4 @@ Installation script will try to detect for required commands (ffmpeg and gifsicl
 
 ## Usage
 
-TBD
-
+ $ gifufy source target
